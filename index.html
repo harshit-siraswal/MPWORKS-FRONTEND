@@ -3,85 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Search and review source-backed MPLADS works by house, term, state and district." />
-    <meta name="theme-color" content="#17324D" />
-    <title>MP Works | Public works register</title>
+    <meta name="description" content="Independent public-data explorer for MPLADS works from the official eSAKSHI source." />
+    <meta name="theme-color" content="#003b70" />
+    <title>MP Works | MPLADS public data explorer</title>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
-    <div class="app-shell">
-      <header class="site-header">
-        <a class="brand" href="#main-content" aria-label="MP Works home">
-          <span class="brand-seal" aria-hidden="true">MP</span>
-          <span><strong>MP Works</strong><small>Public works register</small></span>
-        </a>
-        <nav aria-label="Primary navigation" class="primary-nav">
-          <a class="active" href="#explore">Explore data</a>
-          <a href="#source">Data source</a>
-          <a href="#methodology">Methodology</a>
-        </nav>
-        <div class="header-status"><span class="status-dot"></span><span id="catalogStatus">Connecting to source…</span></div>
-      </header>
-
-      <main id="main-content">
-        <section class="intro-band">
-          <div class="container intro-grid">
-            <div>
-              <p class="section-kicker">MPLADS · SOURCE-LED EXPLORER</p>
-              <h1>See what was recommended<br /><em>for your district.</em></h1>
-              <p class="intro-copy">Search the work register across Lok Sabha and Rajya Sabha records. Every result keeps its source fields visible, and every evidence gap is labelled.</p>
-              <div class="intro-note"><span aria-hidden="true">i</span> A review flag is a prompt for people to verify a record. It is not a finding of wrongdoing.</div>
-            </div>
-            <aside class="source-card ux4g-card ux4g-card-solid" id="source">
-              <div class="source-card-top"><span class="section-kicker">CURRENT SOURCE SNAPSHOT</span><span class="source-pulse" aria-hidden="true"></span></div>
-              <strong id="sourceUpdated">Loading source date…</strong>
-              <p id="sourceDescription">Reading the source manifest…</p>
-              <div class="source-stats"><div><span>Records parsed</span><b id="sourceRecords">—</b></div><div><span>Coverage</span><b id="sourceCoverage">—</b></div></div>
-              <a href="#methodology">Read the source method <span aria-hidden="true">↗</span></a>
-            </aside>
-          </div>
-        </section>
-
-        <section id="explore" class="explorer-section container" aria-labelledby="explore-title">
-          <div class="explorer-heading"><div><p class="section-kicker">01 / EXPLORE</p><h2 id="explore-title">Search the public register</h2></div><p class="heading-note">Filters are applied to the full source-backed catalog.</p></div>
-          <form id="filtersForm" class="filter-card ux4g-card ux4g-card-outline" novalidate>
-            <div class="filter-card-heading"><div><span class="filter-index">FILTERS</span><strong>Choose the public record scope</strong></div><button type="button" id="clearFilters" class="ux4g-btn-text-primary">Clear all</button></div>
-            <div class="filter-grid">
-              <div class="field"><label for="houseFilter">House</label><select id="houseFilter" class="ux4g-input ux4g-input-md"><option value="">All houses</option></select></div>
-              <div class="field"><label for="termFilter">Lok Sabha term</label><select id="termFilter" class="ux4g-input ux4g-input-md"><option value="">All terms</option></select></div>
-              <div class="field"><label for="stateFilter">State / UT</label><select id="stateFilter" class="ux4g-input ux4g-input-md"><option value="">All states</option></select></div>
-              <div class="field"><label for="districtFilter">District</label><select id="districtFilter" class="ux4g-input ux4g-input-md"><option value="">All districts</option></select></div>
-              <div class="field"><label for="constituencyFilter">Constituency</label><select id="constituencyFilter" class="ux4g-input ux4g-input-md"><option value="">All constituencies</option></select></div>
-              <div class="field field-wide"><label for="categoryFilter">Work category</label><select id="categoryFilter" class="ux4g-input ux4g-input-md"><option value="">All categories</option></select></div>
-              <div class="field field-search"><label for="globalSearch">Search all text fields</label><div class="search-control"><span aria-hidden="true">⌕</span><input id="globalSearch" class="ux4g-input ux4g-input-md" type="search" placeholder="MP, work, village, block or constituency" autocomplete="off" /><button id="searchButton" type="submit" class="ux4g-btn-primary">Search</button></div></div>
-            </div>
-            <p id="scopeNote" class="scope-note" aria-live="polite">Loading filter scope…</p>
-          </form>
-
-          <section class="scope-metrics ux4g-card ux4g-card-outline" aria-labelledby="scope-metrics-title">
-            <div class="scope-metrics-head"><div><p class="section-kicker">OFFICIAL DASHBOARD SIGNALS</p><h3 id="scope-metrics-title">Selected scope totals</h3></div><p id="scopeMetricsNote">Loading source metrics…</p></div>
-            <div class="scope-metrics-grid"><div><span>Total allocated</span><strong id="scopeAllocated">Not available</strong></div><div><span>Amount used</span><strong id="scopeUsed">Not available</strong></div><div><span>Works recommended</span><strong id="scopeRecommended">—</strong></div><div><span>Works sanctioned</span><strong id="scopeSanctioned">—</strong></div><div><span>Works ongoing</span><strong id="scopeOngoing">—</strong></div><div><span>Works completed</span><strong id="scopeCompleted">—</strong></div></div>
-          </section>
-
-          <div class="workspace-toolbar"><div><span class="section-kicker">RESULTS</span><strong id="resultsCount">—</strong><span id="resultsRange">Loading…</span></div><div class="view-toggle" role="group" aria-label="Results view"><button type="button" class="active" data-view="split">Map + list</button><button type="button" data-view="table">Table only</button></div></div>
-          <div class="workspace-grid">
-            <section class="results-panel" aria-labelledby="results-title"><div class="results-panel-head"><h3 id="results-title">Source records</h3><span id="resultOrder">Source order · newest first</span></div><div id="resultList" class="result-list"><div class="loading-state">Loading source records…</div></div><button id="loadMore" class="load-more ux4g-btn-outline-primary" type="button" hidden>Load more records <span aria-hidden="true">↓</span></button></section>
-            <aside class="map-panel" aria-labelledby="map-title"><div class="map-head"><div><p class="section-kicker">LOCATION VIEW</p><h3 id="map-title">District map</h3></div><button id="resetMap" type="button" class="map-reset">Reset view</button></div><div id="mapCanvas" class="map-canvas" aria-label="Interactive district map"></div><p id="mapStatus" class="map-status">Select a state or district to place source records on the map.</p><div class="map-legend"><span><i class="legend-dot district"></i>District approximation</span><span><i class="legend-dot source"></i>Source record count</span></div></aside>
-          </div>
-        </section>
-
-        <section class="catalog-strip container" aria-label="Catalog summary">
-          <div class="strip-heading"><p class="section-kicker">02 / CATALOG SIGNALS</p><p>What this source contains today</p></div>
-          <div class="strip-metric"><b id="metricWorks">—</b><span>works in catalog</span></div><div class="strip-metric"><b id="metricCompleted">—</b><span>marked completed</span></div><div class="strip-metric attention"><b id="metricReview">—</b><span>need human review</span></div><div class="strip-metric"><b id="metricImages">—</b><span>image coverage</span></div>
-        </section>
-
-        <section id="methodology" class="methodology-section container"><div class="explorer-heading"><div><p class="section-kicker">03 / METHOD</p><h2>Evidence stays legible.</h2></div><p class="heading-note">The interface distinguishes a source fact, a derived signal, and a missing field.</p></div><div class="method-grid"><article><span class="method-number">01</span><h3>Source first</h3><p>Work text, administrative fields, dates, amounts and status are retained from the source export. No record is replaced with synthetic content.</p><a href="#source">See provenance ↗</a></article><article><span class="method-number">02</span><h3>Images are evidence</h3><p>When the official source exposes an attachment, the backend can download it, record its hash and compare image fingerprints. Missing images remain “not in source”.</p><a href="#explore">View an evidence record ↗</a></article><article><span class="method-number">03</span><h3>Map with boundaries</h3><p>The source snapshot has no project coordinates. The map therefore labels OpenStreetMap district locations as approximate instead of pretending a work is precisely geolocated.</p><a href="#explore">Choose a district ↗</a></article></div></section>
-      </main>
-
-      <footer class="site-footer"><div class="container footer-inner"><div><strong>MP Works</strong><span>Public administration, made reviewable.</span></div><p>Source: Ministry of Statistics &amp; Programme Implementation · MPLADS</p><a href="https://mplads.mospi.gov.in/digigov/dashboard.html" target="_blank" rel="noreferrer">Open official portal ↗</a></div></footer>
-    </div>
-
-    <div id="detailDrawer" class="detail-drawer" aria-hidden="true"><div class="drawer-backdrop"></div><aside class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawerTitle"><button id="closeDrawer" class="drawer-close" type="button" aria-label="Close record details">×</button><div id="drawerContent" class="drawer-content"></div></aside></div>
+    <div class="utility-bar"><div class="site-width utility-inner"><a href="https://www.india.gov.in/" target="_blank" rel="noreferrer"><img src="https://doc.ux4g.gov.in/assets/img/icon/in-flag.png" alt="Indian flag" /> Government of India</a><div class="utility-actions"><button type="button" data-font="decrease" aria-label="Decrease text size">A−</button><button type="button" data-font="reset" aria-label="Reset text size">A</button><button type="button" data-font="increase" aria-label="Increase text size">A+</button><label for="languageSelect" class="sr-only">Language</label><select id="languageSelect" aria-label="Language"><option>English</option><option disabled>हिन्दी (coming soon)</option></select></div></div></div>
+    <div class="tricolour-rule" aria-hidden="true"><i></i><i></i><i></i></div>
+    <header class="gov-header"><div class="site-width gov-header-inner"><a class="identity" href="/" aria-label="MP Works home"><img class="emblem" src="https://doc.ux4g.gov.in/assets/img/logo/national-emblem.png" alt="State Emblem of India" /><span class="identity-copy"><small>Government of India</small><strong>MP Works</strong><span>Public data explorer for MPLADS</span></span></a><div class="ministry-identity"><img src="https://www.mospi.gov.in/assets/mospi-logo-D_cI9Etu.svg" alt="Ministry of Statistics and Programme Implementation logo" /><span>Ministry of Statistics and<br />Programme Implementation</span></div></div></header>
+    <nav class="primary-nav" aria-label="Primary navigation"><div class="site-width nav-inner"><a class="active" href="#explore">Dashboard</a><a href="#about">About MPLADS</a><a href="#methodology">Methodology</a><a href="https://mplads.mospi.gov.in/digigov/dashboard.html" target="_blank" rel="noreferrer">Official eSAKSHI ↗</a><span class="nav-status"><i id="statusDot"></i><span id="catalogStatus">Connecting to source…</span></span></div></nav>
+    <main id="main-content">
+      <div class="site-width breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><strong>MP Works dashboard</strong></div>
+      <section class="page-intro" id="about"><div class="site-width intro-inner"><div><p class="eyebrow">Members of Parliament Local Area Development Scheme</p><h1>Public works register</h1><p>Search works recommended, sanctioned and completed through the official MPLADS eSAKSHI source. Filter by parliamentary house, term, State/UT, district or village.</p></div><div class="intro-note"><strong>Independent public-data explorer</strong><span>MP Works is not an official Government of India website. Source records link to the official portal.</span></div></div></section>
+      <section class="site-width dashboard-section" id="explore" aria-labelledby="dashboard-title"><div class="section-heading"><div><p class="eyebrow">Dashboard</p><h2 id="dashboard-title">Find a work record</h2></div><p class="section-help">Live eSAKSHI records are shown when the ingestion service has fetched them. Snapshot records remain labelled with their source date.</p></div>
+        <form id="filtersForm" class="service-form" novalidate><div class="form-title"><div><h3>Search and filter</h3><p>Choose the scope of the public register.</p></div><button id="clearFilters" type="button" class="text-button">Clear all</button></div><div class="form-grid"><div class="field"><label for="houseFilter">House of Parliament</label><select id="houseFilter" class="ux4g-input ux4g-input-md"><option value="">All houses</option></select></div><div class="field"><label for="termFilter">Parliamentary term</label><select id="termFilter" class="ux4g-input ux4g-input-md"><option value="">All terms</option></select></div><div class="field"><label for="stateFilter">State / Union Territory</label><select id="stateFilter" class="ux4g-input ux4g-input-md"><option value="">All States / UTs</option></select></div><div class="field"><label for="districtFilter">District</label><select id="districtFilter" class="ux4g-input ux4g-input-md"><option value="">All districts</option></select></div><div class="field"><label for="constituencyFilter">Constituency</label><select id="constituencyFilter" class="ux4g-input ux4g-input-md"><option value="">All constituencies</option></select></div><div class="field"><label for="categoryFilter">Work category</label><select id="categoryFilter" class="ux4g-input ux4g-input-md"><option value="">All categories</option></select></div><div class="field search-field"><label for="globalSearch">Search MP, work, village or location</label><div class="search-row"><input id="globalSearch" class="ux4g-input ux4g-input-md" type="search" placeholder="Enter a village, work description or MP name" autocomplete="off" /><button id="searchButton" type="submit" class="ux4g-btn-primary">Search</button></div></div></div><p id="scopeNote" class="form-note" aria-live="polite">Loading source scope…</p></form>
+        <section class="metrics-card" aria-labelledby="metrics-title"><div class="metrics-title"><div><p class="eyebrow">Official dashboard fields</p><h3 id="metrics-title">Selected scope totals</h3></div><p id="scopeMetricsNote">Loading metrics…</p></div><div class="metrics-grid"><div><span>Allocated limit</span><strong id="scopeAllocated">—</strong></div><div><span>Amount used</span><strong id="scopeUsed">—</strong></div><div><span>Works recommended</span><strong id="scopeRecommended">—</strong></div><div><span>Works sanctioned</span><strong id="scopeSanctioned">—</strong></div><div><span>Works ongoing</span><strong id="scopeOngoing">—</strong></div><div><span>Works completed</span><strong id="scopeCompleted">—</strong></div></div></section>
+        <div class="source-summary"><div><span>Current source coverage</span><strong id="sourceUpdated">Loading…</strong><p id="sourceDescription">Reading the source manifest…</p></div><div><span>Records available</span><strong id="sourceRecords">—</strong></div><div><span>Source attribution</span><strong id="sourceCoverage">—</strong></div></div>
+        <div class="results-toolbar"><div><p class="eyebrow">Search results</p><h3><span id="resultsCount">—</span> <small id="resultsRange">Loading…</small></h3></div><div class="view-toggle" role="group" aria-label="Results view"><button type="button" class="active" data-view="split">Map + table</button><button type="button" data-view="table">Table only</button></div></div>
+        <div class="workspace-grid"><section class="records-panel" aria-labelledby="records-title"><div class="panel-heading"><h3 id="records-title">Work records</h3><span id="resultOrder">Source order</span></div><div id="resultList" class="result-list"><div class="loading-state">Loading source records…</div></div><button id="loadMore" class="load-more ux4g-btn-outline-primary" type="button" hidden>Load more records</button></section><aside class="map-panel" aria-labelledby="map-title"><div class="panel-heading"><div><p class="eyebrow">Location view</p><h3 id="map-title">District map</h3></div><button id="resetMap" type="button" class="small-button">Reset view</button></div><div id="mapCanvas" class="map-canvas" aria-label="Interactive district map"></div><p id="mapStatus" class="map-status">Select a State/UT or district to view approximate locations.</p><div class="map-legend"><span><i></i>Approximate district location</span><span><i></i>Number of matching works</span></div></aside></div>
+      </section>
+      <section class="method-section" id="methodology"><div class="site-width"><div class="section-heading"><div><p class="eyebrow">Transparency</p><h2>How to read this register</h2></div><p class="section-help">The dashboard separates official source fields from derived analysis and missing evidence.</p></div><div class="method-grid"><article><span>Source data</span><h3>Official work records</h3><p>Descriptions, dates, amounts, status, MP, house and term are retained from eSAKSHI or the cited MPLADS export.</p></article><article><span>Evidence review</span><h3>Images and PDFs</h3><p>When attachments are available, the service stores them, displays them and compares their contents with the project record for human review.</p></article><article><span>Responsible analysis</span><h3>Signals, not verdicts</h3><p>AI output highlights possible inconsistencies. It is not proof of fraud and should be checked against official records and field evidence.</p></article></div></div></section>
+    </main>
+    <footer class="gov-footer"><div class="site-width footer-grid"><div><img src="https://doc.ux4g.gov.in/assets/img/logo/national-emblem.png" alt="State Emblem of India" /><div><strong>MP Works</strong><span>Independent public data explorer</span></div></div><p>Source: Ministry of Statistics and Programme Implementation · MPLADS eSAKSHI</p><div><a href="https://mplads.mospi.gov.in/digigov/dashboard.html" target="_blank" rel="noreferrer">Official portal ↗</a><a href="https://www.ux4g.gov.in/" target="_blank" rel="noreferrer">UX4G Design System ↗</a></div></div></footer>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
