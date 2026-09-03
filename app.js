@@ -1,4 +1,4 @@
-const API_BASE = (import.meta.env?.VITE_MPLAD_API_BASE || window.MPLAD_API_BASE || 'http://127.0.0.1:8000/api').replace(/\/$/, '');
+const API_BASE = (import.meta.env?.VITE_MPLAD_API_BASE || window.MPLAD_API_BASE || 'https://9swhxvuz7b.execute-api.eu-north-1.amazonaws.com/api').replace(/\/$/, '');
 const pageSize = 50;
 const resultList = document.querySelector('#resultList');
 const loadMoreButton = document.querySelector('#loadMore');

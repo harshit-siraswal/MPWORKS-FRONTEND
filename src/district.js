@@ -2,7 +2,7 @@ import 'ux4g-web-components/styles.css';
 import 'ux4g-web-components/design-system';
 import '../styles.css';
 
-const API_BASE = (import.meta.env?.VITE_MPLAD_API_BASE || window.MPLAD_API_BASE || 'http://127.0.0.1:8000/api').replace(/\/$/, '');
+const API_BASE = (import.meta.env?.VITE_MPLAD_API_BASE || window.MPLAD_API_BASE || 'https://9swhxvuz7b.execute-api.eu-north-1.amazonaws.com/api').replace(/\/$/, '');
 const root = document.querySelector('#districtRoot');
 const query = new URLSearchParams(location.search);
 const scope = { state: query.get('state') || '', district: query.get('district') || '', house: query.get('house') || '', term: query.get('term') || '' };
