@@ -6,6 +6,7 @@ export default defineConfig({
       input: {
         dashboard: 'index.html',
         project: 'project.html',
+        district: 'district.html',
       },
     },
   },
