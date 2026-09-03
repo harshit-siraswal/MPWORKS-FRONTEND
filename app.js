@@ -12,6 +12,7 @@ let totalResults = 0;
 let nextOffset = 0;
 let loading = false;
 let facetLoading = false;
+let metricsRequest = 0;
 let searchTimer;
 
 const formatNumber = (value) => Number.isFinite(Number(value)) ? new Intl.NumberFormat('en-IN').format(Number(value)) : '—';
@@ -25,7 +26,7 @@ function setCatalogStatus(message, healthy = true) { const status = document.que
 
 function currentQuery() {
   const params = new URLSearchParams();
-  const fields = [['query', document.querySelector('#globalSearch').value.trim()], ['house', value('houseFilter')], ['term', value('termFilter')], ['state', value('stateFilter')], ['district', value('districtFilter')], ['category', value('categoryFilter')]];
+  const fields = [['query', document.querySelector('#globalSearch').value.trim()], ['house', value('houseFilter')], ['term', value('termFilter')], ['state', value('stateFilter')], ['district', value('districtFilter')], ['constituency', value('constituencyFilter')], ['category', value('categoryFilter')]];
   fields.forEach(([key, item]) => { if (item) params.set(key, item); });
   return params;
 }
@@ -39,13 +40,14 @@ function fillSelect(id, label, values, selected = '') {
 async function loadFacets() {
   if (facetLoading) return;
   facetLoading = true;
-  const selected = { house: value('houseFilter'), term: value('termFilter'), state: value('stateFilter'), district: value('districtFilter'), category: value('categoryFilter') };
+  const selected = { house: value('houseFilter'), term: value('termFilter'), state: value('stateFilter'), district: value('districtFilter'), constituency: value('constituencyFilter'), category: value('categoryFilter') };
   try {
     const { data } = await getJson(`/catalog/facets?${currentQuery().toString()}`);
     fillSelect('houseFilter', 'All houses', data.houses, selected.house);
     fillSelect('termFilter', 'All terms', data.terms, selected.term);
     fillSelect('stateFilter', 'All states', data.states, selected.state);
     fillSelect('districtFilter', 'All districts', data.districts, selected.district);
+    fillSelect('constituencyFilter', 'All constituencies', data.constituencies || [], selected.constituency);
     fillSelect('categoryFilter', 'All categories', data.categories, selected.category);
   } catch { setCatalogStatus('Source filters unavailable', false); }
   finally { facetLoading = false; }
@@ -57,6 +59,7 @@ function updateResultsCount() {
   loadMoreButton.hidden = !projects.length || projects.length >= totalResults;
   loadMoreButton.disabled = loading;
   document.querySelector('#scopeNote').textContent = `${formatNumber(totalResults)} source records match this scope. ${value('districtFilter') ? 'The district filter now uses the source IDA district field, not the block field.' : 'Choose a district to see its complete matching register.'}`;
+  loadMoreButton.textContent = projects.length < totalResults ? `Load ${formatNumber(Math.min(pageSize, totalResults - projects.length))} more records ↓` : 'All matching records loaded';
 }
 
 function renderResults() {
@@ -69,6 +72,7 @@ function renderResults() {
 
 async function loadCatalog({ append = false } = {}) {
   if (loading) return;
+  if (append && nextOffset >= totalResults) return;
   loading = true;
   if (!append) { nextOffset = 0; resultList.innerHTML = '<div class="loading-state">Loading source records…</div>'; }
   const params = currentQuery(); params.set('limit', pageSize); params.set('offset', append ? nextOffset : 0);
@@ -82,12 +86,28 @@ async function loadCatalog({ append = false } = {}) {
   finally { loading = false; loadMoreButton.disabled = false; updateResultsCount(); }
 }
 
+async function loadMetrics() {
+  const requestId = ++metricsRequest;
+  const scope = currentQuery().toString();
+  try {
+    const { data } = await getJson(`/catalog/metrics?${scope}`);
+    if (requestId !== metricsRequest) return;
+    document.querySelector('#scopeAllocated').textContent = data.allocatedAmount == null ? 'Not available in snapshot' : `₹${formatNumber(data.allocatedAmount)}`;
+    document.querySelector('#scopeUsed').textContent = data.expenditureAmount == null ? 'Not available in snapshot' : `₹${formatNumber(data.expenditureAmount)}`;
+    document.querySelector('#scopeRecommended').textContent = formatNumber(data.worksRecommended);
+    document.querySelector('#scopeSanctioned').textContent = formatNumber(data.worksSanctioned);
+    document.querySelector('#scopeOngoing').textContent = formatNumber(data.worksOngoing);
+    document.querySelector('#scopeCompleted').textContent = formatNumber(data.worksCompleted);
+    document.querySelector('#scopeMetricsNote').textContent = data.note;
+  } catch { document.querySelector('#scopeMetricsNote').textContent = 'Source metrics unavailable.'; }
+}
+
 async function loadSummary() {
   try {
     const { data } = await getJson('/catalog/summary');
     document.querySelector('#metricWorks').textContent = formatNumber(data.total); document.querySelector('#metricCompleted').textContent = formatNumber(data.completed); document.querySelector('#metricReview').textContent = formatNumber(data.review); document.querySelector('#metricImages').textContent = data.imageCoverage == null ? 'N/A' : `${data.imageCoverage}%`;
     document.querySelector('#sourceRecords').textContent = formatNumber(data.total); document.querySelector('#sourceCoverage').textContent = data.sourceCoverage == null ? 'N/A' : `${data.sourceCoverage}%`;
-    document.querySelector('#sourceUpdated').textContent = `Snapshot through ${formatDate(data.sourceDataThrough)}`; document.querySelector('#sourceDescription').textContent = 'The local catalog is parsed from a checked-in, source-attributed MPLADS work-list export. Live collection is available through the backend fetch command.';
+    document.querySelector('#sourceUpdated').textContent = `Snapshot through ${formatDate(data.sourceDataThrough)}`; document.querySelector('#sourceDescription').textContent = 'The catalog is source-attributed. The backend eSAKSHI agent can fetch live work reports, dashboard metrics and source attachments into CSV, Supabase and R2.';
   } catch { setCatalogStatus('Catalog unavailable', false); }
 }
 
@@ -127,14 +147,14 @@ async function openDrawer(index) {
 
 function closeDrawer() { drawer.classList.remove('open'); drawer.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; }
 
-document.querySelector('#filtersForm').addEventListener('submit', (event) => { event.preventDefault(); document.querySelector('#explore').scrollIntoView({ behavior: 'smooth', block: 'start' }); loadCatalog(); });
-document.querySelector('#globalSearch').addEventListener('input', () => { clearTimeout(searchTimer); searchTimer = setTimeout(() => loadCatalog(), 300); });
-document.querySelectorAll('#houseFilter, #termFilter, #stateFilter, #districtFilter, #categoryFilter').forEach((select) => select.addEventListener('change', async () => { await loadFacets(); await loadCatalog(); }));
-document.querySelector('#clearFilters').addEventListener('click', async () => { document.querySelector('#globalSearch').value = ''; ['houseFilter', 'termFilter', 'stateFilter', 'districtFilter', 'categoryFilter'].forEach((id) => { document.querySelector(`#${id}`).value = ''; }); await loadFacets(); await loadCatalog(); });
+document.querySelector('#filtersForm').addEventListener('submit', async (event) => { event.preventDefault(); document.querySelector('#explore').scrollIntoView({ behavior: 'smooth', block: 'start' }); await loadCatalog(); await loadMetrics(); });
+document.querySelector('#globalSearch').addEventListener('input', () => { clearTimeout(searchTimer); searchTimer = setTimeout(async () => { await loadCatalog(); await loadMetrics(); }, 300); });
+document.querySelectorAll('#houseFilter, #termFilter, #stateFilter, #districtFilter, #constituencyFilter, #categoryFilter').forEach((select) => select.addEventListener('change', async () => { await loadFacets(); await loadCatalog(); await loadMetrics(); }));
+document.querySelector('#clearFilters').addEventListener('click', async () => { document.querySelector('#globalSearch').value = ''; ['houseFilter', 'termFilter', 'stateFilter', 'districtFilter', 'constituencyFilter', 'categoryFilter'].forEach((id) => { document.querySelector(`#${id}`).value = ''; }); await loadFacets(); await loadCatalog(); await loadMetrics(); });
 document.querySelector('#loadMore').addEventListener('click', () => loadCatalog({ append: true }));
 document.querySelector('#resetMap').addEventListener('click', () => { map?.setView(INDIA_CENTER, 5); refreshMap(); });
 document.querySelector('#closeDrawer').addEventListener('click', closeDrawer); document.querySelector('.drawer-backdrop').addEventListener('click', closeDrawer); document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeDrawer(); });
 document.querySelectorAll('.view-toggle button').forEach((button) => button.addEventListener('click', () => { document.querySelectorAll('.view-toggle button').forEach((item) => item.classList.remove('active')); button.classList.add('active'); document.querySelector('.workspace-grid').classList.toggle('table-only', button.dataset.view === 'table'); setTimeout(() => map?.invalidateSize(), 50); }));
 
 initializeMap();
-Promise.all([loadFacets(), loadSummary(), loadCatalog()]);
+Promise.all([loadFacets(), loadSummary(), loadCatalog(), loadMetrics()]);

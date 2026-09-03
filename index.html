@@ -51,11 +51,17 @@
               <div class="field"><label for="termFilter">Lok Sabha term</label><select id="termFilter" class="ux4g-input ux4g-input-md"><option value="">All terms</option></select></div>
               <div class="field"><label for="stateFilter">State / UT</label><select id="stateFilter" class="ux4g-input ux4g-input-md"><option value="">All states</option></select></div>
               <div class="field"><label for="districtFilter">District</label><select id="districtFilter" class="ux4g-input ux4g-input-md"><option value="">All districts</option></select></div>
+              <div class="field"><label for="constituencyFilter">Constituency</label><select id="constituencyFilter" class="ux4g-input ux4g-input-md"><option value="">All constituencies</option></select></div>
               <div class="field field-wide"><label for="categoryFilter">Work category</label><select id="categoryFilter" class="ux4g-input ux4g-input-md"><option value="">All categories</option></select></div>
               <div class="field field-search"><label for="globalSearch">Search all text fields</label><div class="search-control"><span aria-hidden="true">⌕</span><input id="globalSearch" class="ux4g-input ux4g-input-md" type="search" placeholder="MP, work, village, block or constituency" autocomplete="off" /><button id="searchButton" type="submit" class="ux4g-btn-primary">Search</button></div></div>
             </div>
             <p id="scopeNote" class="scope-note" aria-live="polite">Loading filter scope…</p>
           </form>
+
+          <section class="scope-metrics ux4g-card ux4g-card-outline" aria-labelledby="scope-metrics-title">
+            <div class="scope-metrics-head"><div><p class="section-kicker">OFFICIAL DASHBOARD SIGNALS</p><h3 id="scope-metrics-title">Selected scope totals</h3></div><p id="scopeMetricsNote">Loading source metrics…</p></div>
+            <div class="scope-metrics-grid"><div><span>Total allocated</span><strong id="scopeAllocated">Not available</strong></div><div><span>Amount used</span><strong id="scopeUsed">Not available</strong></div><div><span>Works recommended</span><strong id="scopeRecommended">—</strong></div><div><span>Works sanctioned</span><strong id="scopeSanctioned">—</strong></div><div><span>Works ongoing</span><strong id="scopeOngoing">—</strong></div><div><span>Works completed</span><strong id="scopeCompleted">—</strong></div></div>
+          </section>
 
           <div class="workspace-toolbar"><div><span class="section-kicker">RESULTS</span><strong id="resultsCount">—</strong><span id="resultsRange">Loading…</span></div><div class="view-toggle" role="group" aria-label="Results view"><button type="button" class="active" data-view="split">Map + list</button><button type="button" data-view="table">Table only</button></div></div>
           <div class="workspace-grid">
@@ -72,7 +78,7 @@
         <section id="methodology" class="methodology-section container"><div class="explorer-heading"><div><p class="section-kicker">03 / METHOD</p><h2>Evidence stays legible.</h2></div><p class="heading-note">The interface distinguishes a source fact, a derived signal, and a missing field.</p></div><div class="method-grid"><article><span class="method-number">01</span><h3>Source first</h3><p>Work text, administrative fields, dates, amounts and status are retained from the source export. No record is replaced with synthetic content.</p><a href="#source">See provenance ↗</a></article><article><span class="method-number">02</span><h3>Images are evidence</h3><p>When the official source exposes an attachment, the backend can download it, record its hash and compare image fingerprints. Missing images remain “not in source”.</p><a href="#explore">View an evidence record ↗</a></article><article><span class="method-number">03</span><h3>Map with boundaries</h3><p>The source snapshot has no project coordinates. The map therefore labels OpenStreetMap district locations as approximate instead of pretending a work is precisely geolocated.</p><a href="#explore">Choose a district ↗</a></article></div></section>
       </main>
 
-      <footer class="site-footer"><div class="container footer-inner"><div><strong>MP Works</strong><span>Public administration, made reviewable.</span></div><p>Source: Ministry of Statistics &amp; Programme Implementation · MPLADS</p><a href="https://mplads.gov.in/mplads/" target="_blank" rel="noreferrer">Open official portal ↗</a></div></footer>
+      <footer class="site-footer"><div class="container footer-inner"><div><strong>MP Works</strong><span>Public administration, made reviewable.</span></div><p>Source: Ministry of Statistics &amp; Programme Implementation · MPLADS</p><a href="https://mplads.mospi.gov.in/digigov/dashboard.html" target="_blank" rel="noreferrer">Open official portal ↗</a></div></footer>
     </div>
 
     <div id="detailDrawer" class="detail-drawer" aria-hidden="true"><div class="drawer-backdrop"></div><aside class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawerTitle"><button id="closeDrawer" class="drawer-close" type="button" aria-label="Close record details">×</button><div id="drawerContent" class="drawer-content"></div></aside></div>
