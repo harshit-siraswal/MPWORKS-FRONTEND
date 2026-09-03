@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Explore public MPLADS works with source-backed evidence and transparent review signals." />
+    <meta name="theme-color" content="#17324d" />
+    <title>MPLAD Intelligence | Explore public works</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="app-shell">
+      <header class="site-header ux4g-navbar">
+        <a class="brand" href="#main-content" aria-label="MPLAD Intelligence home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img"><circle cx="24" cy="24" r="17"/><circle cx="24" cy="24" r="10"/><path d="M24 7v34M7 24h34M12 12l24 24M36 12 12 36"/><circle cx="24" cy="24" r="3" fill="currentColor"/></svg>
+          </span>
+          <span><strong>MPLAD</strong><em>intelligence</em></span>
+        </a>
+        <nav class="primary-nav" aria-label="Primary navigation">
+          <a class="active" href="#explore">Explore works</a>
+          <a href="#reports">Reports</a>
+          <a href="#methodology">Methodology</a>
+        </nav>
+        <div class="header-actions">
+          <button class="icon-button ux4g-btn-outline-neutral ux4g-btn-sm" aria-label="Adjust text size" title="Adjust text size">Aa</button>
+          <button class="language-button ux4g-btn-text-neutral ux4g-btn-sm" aria-label="Change language">English <span>⌄</span></button>
+          <button class="menu-button" aria-label="Open menu"><span></span><span></span><span></span></button>
+        </div>
+      </header>
+
+      <div class="trust-strip">
+        <div id="catalogStatus" class="trust-item" aria-live="polite"><span class="live-dot"></span><span>Source sync healthy</span></div>
+        <div class="trust-divider"></div>
+        <div class="trust-item"><span id="sourceUpdated" class="mono">Loading source date…</span> last updated</div>
+        <div class="trust-divider"></div>
+        <div class="trust-item"><span id="sourceCoverage" class="mono">Loading</span> source coverage</div>
+        <a class="trust-link" href="#methodology">How we use evidence <span>↗</span></a>
+      </div>
+
+      <main id="main-content">
+        <section class="hero-section container">
+          <div class="hero-copy">
+            <div class="eyebrow"><span class="eyebrow-line"></span> Public works, made reviewable</div>
+            <h1>Explore public works<br /><span>in your area.</span></h1>
+            <p class="hero-description">Find MPLADS projects, understand the evidence behind each record, and share what you know.</p>
+            <div class="hero-note"><span class="note-icon">i</span> AI signals help prioritize human review. They do not declare fraud.</div>
+          </div>
+          <div class="hero-orbit" aria-hidden="true">
+            <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit orbit-three"></div>
+            <div class="orbit-core"><svg viewBox="0 0 160 160"><path d="M80 22v116M22 80h116M39 39l82 82M121 39 39 121"/><circle cx="80" cy="80" r="42"/><circle cx="80" cy="80" r="8" fill="currentColor"/></svg></div>
+            <span class="orbit-label label-north">SOURCE</span><span class="orbit-label label-east">REVIEW</span><span class="orbit-label label-south">COMMUNITY</span>
+          </div>
+        </section>
+
+        <section class="search-section container" aria-label="Find public works">
+          <div class="search-box ux4g-search ux4g-search-m">
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <input id="globalSearch" class="ux4g-search-input" type="search" name="catalog-search" placeholder="Search by MP, district, area, or village name…" autocomplete="off" />
+            <kbd>/</kbd>
+            <button id="searchButton" class="search-submit ux4g-btn-primary ux4g-btn-md">Search <span>→</span></button>
+          </div>
+          <div class="quick-actions" aria-label="Quick location actions">
+            <button class="quick-action ux4g-btn-outline-primary ux4g-btn-sm active" data-mode="map"><span class="quick-icon">✣</span> Use the map</button>
+            <button class="quick-action ux4g-btn-outline-primary ux4g-btn-sm" data-mode="select"><span class="quick-icon">☷</span> Select from lists</button>
+            <button class="quick-action ux4g-btn-outline-primary ux4g-btn-sm" data-mode="village"><span class="quick-icon">⌁</span> Search a village name</button>
+          </div>
+        </section>
+
+        <section class="metrics-section container" aria-label="At a glance">
+          <div class="section-heading"><span>At a glance</span><span class="section-rule"></span><span class="section-context">National catalog · all records</span></div>
+          <div class="metric-grid">
+            <article class="metric-card metric-primary ux4g-card ux4g-card-solid ux4g-card-vertical"><div class="metric-label">Works in catalog <span class="info">i</span></div><strong id="metricWorks">—</strong><span id="metricWorksFoot" class="metric-foot">Loading live source</span></article>
+            <article class="metric-card ux4g-card ux4g-card-solid ux4g-card-vertical"><div class="metric-label">Completed works</div><strong id="metricCompleted">—</strong><span id="metricCompletedFoot" class="metric-foot">Loading live source</span></article>
+            <article class="metric-card metric-attention ux4g-card ux4g-card-solid ux4g-card-vertical"><div class="metric-label">Need evidence review <span class="info">i</span></div><strong id="metricReview">—</strong><span id="metricReviewFoot" class="metric-foot">Evidence availability is source-dependent</span></article>
+            <article class="metric-card ux4g-card ux4g-card-solid ux4g-card-vertical"><div class="metric-label">Image coverage</div><strong id="metricImages">—</strong><span id="metricImagesFoot" class="metric-foot">Not reported by source snapshot</span></article>
+          </div>
+        </section>
+
+        <section id="explore" class="workspace-section container">
+          <div class="workspace-topline">
+            <div><div class="eyebrow"><span class="eyebrow-line"></span> Live catalog</div><h2>Find a work to understand</h2></div>
+            <div class="view-switcher" role="group" aria-label="View mode"><button class="view-button active" data-view="split">Map + list</button><button class="view-button" data-view="table">Table only</button></div>
+          </div>
+
+          <div class="workspace-grid">
+            <aside class="filter-panel">
+              <div class="filter-header"><div><span class="filter-kicker">NARROW RESULTS</span><h3>Location & signals</h3></div><button id="clearFilters" class="text-button">Clear all</button></div>
+              <div class="selected-context"><span class="context-pin">⌖</span><div><strong>India</strong><small>All states and territories</small></div><span id="contextCount" class="context-count">—</span></div>
+              <label class="field-label" for="stateFilter">State</label><div class="select-wrap ux4g-input-container ux4g-input-md ux4g-input-default"><select id="stateFilter"><option>All states</option></select><span>⌄</span></div>
+              <label class="field-label" for="districtFilter">District</label><div class="select-wrap ux4g-input-container ux4g-input-md ux4g-input-default"><select id="districtFilter"><option>All districts</option></select><span>⌄</span></div>
+              <label class="field-label" for="categoryFilter">Work category</label><div class="select-wrap ux4g-input-container ux4g-input-md ux4g-input-default"><select id="categoryFilter"><option>All categories</option></select><span>⌄</span></div>
+              <div class="filter-divider"></div>
+              <div class="field-label">Evidence availability</div>
+              <label class="check-row ux4g-checkbox ux4g-checkbox-md"><input id="hasImagesFilter" type="checkbox" class="ux4g-checkbox-input" disabled /><span class="fake-check"></span><span class="ux4g-checkbox-content">Has images</span><b>Not reported</b></label>
+              <label class="check-row ux4g-checkbox ux4g-checkbox-md"><input id="evidenceGapFilter" type="checkbox" class="ux4g-checkbox-input" checked /><span class="fake-check"></span><span class="ux4g-checkbox-content">Evidence gap</span><b>Source snapshot</b></label>
+              <div class="field-label risk-label">Risk band <span class="info">i</span></div>
+              <div class="risk-options"><button class="risk-option selected"><i class="risk-swatch medium"></i>All bands</button><button class="risk-option"><i class="risk-swatch low"></i>Low</button><button class="risk-option"><i class="risk-swatch high"></i>High</button></div>
+              <div class="filter-footer"><span>Showing current catalog</span><span class="fresh-dot"></span></div>
+            </aside>
+
+            <div class="results-column">
+              <div class="results-toolbar"><div><strong id="resultsCount" aria-live="polite">Loading works…</strong><span> in current view</span></div><div class="toolbar-actions"><button class="toolbar-button" disabled>Sort: <b>Source order</b>⌄</button><button class="toolbar-icon" aria-label="Download results" disabled>⇩</button></div></div>
+              <div id="resultList" class="result-list"></div>
+              <button id="loadMore" class="load-more">Load more works <span>↓</span></button>
+            </div>
+
+            <div class="map-panel" aria-label="Map view of works">
+              <div class="map-toolbar"><div class="map-location"><span class="map-cross">+</span> India <span class="map-chevron">⌄</span></div></div>
+              <div class="map-canvas">
+                <div class="map-grid-lines"></div>
+                <div class="map-empty-state"><span class="map-empty-icon">⌖</span><h3>Map geometry is not available</h3><p>The current source snapshot provides village and administrative text, but no reliable coordinates. Search the list by village, district, or MP.</p><a class="ux4g-btn-outline-primary ux4g-btn-sm" href="#resultList">Use the list</a></div>
+                <div class="map-legend"><span class="legend-title">MAP STATUS</span><span><i class="legend-dot muted"></i> Coordinates not in source</span><span><i class="legend-dot evidence"></i> Text location retained</span></div>
+              </div>
+              <div class="map-footnote"><span>⌖</span> Points appear only where coordinates are reliable. Works without map geometry remain searchable by village name.</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="methodology" class="how-section container">
+          <div class="section-heading"><span>How it works</span><span class="section-rule"></span><span class="section-context">An evidence-led path</span></div>
+          <div class="how-grid">
+            <article class="how-card"><span class="how-number">01</span><div class="how-icon">⌕</div><h3>Find a work</h3><p>Search a place, village or MP across the normalized public catalog.</p><a href="#explore">Start exploring <span>→</span></a></article>
+            <article class="how-card featured"><span class="how-number">02</span><div class="how-icon">◉</div><h3>Understand the evidence</h3><p>Trace every signal to its source record, image, comparison and caveat.</p><a href="#explore">See an example <span>→</span></a></article>
+            <article class="how-card"><span class="how-number">03</span><div class="how-icon">↗</div><h3>Share what you know</h3><p>Report a gap, rate a visible outcome, or add context for human review.</p><a href="#reports">Report a project <span>→</span></a></article>
+          </div>
+        </section>
+
+        <section id="reports" class="safety-section container"><div class="safety-motif" aria-hidden="true"><span></span><span></span><span></span></div><div><div class="eyebrow"><span class="eyebrow-line"></span> Trust & safety</div><h2>Signals are a starting point,<br /><em>not a verdict.</em></h2></div><p>Missing images are an evidence gap, not proof of wrongdoing. Public reports are unverified until moderated. Every automated signal shows what was compared, the method used, and what a human should verify.</p><a class="outline-button" href="#methodology">Read our methodology <span>↗</span></a></section>
+      </main>
+
+      <footer class="site-footer container"><div class="footer-brand"><span class="brand-mark small" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17"/><circle cx="24" cy="24" r="10"/><path d="M24 7v34M7 24h34M12 12l24 24M36 12 12 36"/></svg></span><span><strong>MPLAD</strong><em>intelligence</em></span></div><p>Source-backed public works intelligence for transparent review.</p><div class="footer-links"><a href="#methodology">Source & method</a><a href="#reports">Moderation policy</a><a href="#main-content">Accessibility</a></div></footer>
+    </div>
+    <div id="detailDrawer" class="detail-drawer" aria-hidden="true"><div class="drawer-backdrop"></div><aside class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawerTitle"><button id="closeDrawer" class="drawer-close" aria-label="Close project details">×</button><div id="drawerContent"></div></aside></div>
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>
