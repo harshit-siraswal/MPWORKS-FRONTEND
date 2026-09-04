@@ -11,6 +11,7 @@ export default defineConfig({
         works: 'works.html',
         mps: 'mps.html',
         mp: 'mp.html',
+        developer: 'developer.html',
       },
     },
   },

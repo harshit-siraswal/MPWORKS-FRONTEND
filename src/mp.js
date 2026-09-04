@@ -1,6 +1,7 @@
 import 'ux4g-web-components/styles.css';
 import 'ux4g-web-components/design-system';
 import '../styles.css';
+import './site-nav.js';
 
 const API_BASE = (import.meta.env?.VITE_MPLAD_API_BASE || window.MPLAD_API_BASE || 'https://9swhxvuz7b.execute-api.eu-north-1.amazonaws.com/api').replace(/\/$/, '');
 const id = new URLSearchParams(location.search).get('id');
@@ -8,7 +9,7 @@ const root = document.querySelector('#profile');
 const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (c) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;' }[c]));
 const number = (value) => Number.isFinite(Number(value)) ? new Intl.NumberFormat('en-IN').format(Number(value)) : '—';
 async function get(path) { const response = await fetch(`${API_BASE}${path}`); if (!response.ok) throw new Error(`API request failed: ${response.status}`); return response.json(); }
-function projectRow(project) { const feedback = project.publicFeedback?.ratingCount ? ` · public ${esc(project.publicFeedback.averageRating)}/10` : ''; const evidence = project.attachmentCount ? `${number(project.attachmentCount)} evidence files` : project.evidenceStatus === 'source-pending-index' ? 'Source evidence pending fetch' : 'No evidence indexed'; return `<tr><td><strong>${esc(project.title)}</strong><small>${esc(project.mp)}</small></td><td>${esc(project.district)}<small>${esc([project.villageRaw, project.state].filter(Boolean).join(' · '))}</small></td><td>${esc(project.house)}<small>${esc(project.term)}</small></td><td>${esc(project.status)}</td><td>${esc(project.amount)}<small>${evidence}</small><small>Review index: ${esc(project.riskIndex?.score ?? '—')}/100${feedback}</small></td><td><a class="row-action" href="/project.html?id=${encodeURIComponent(project.id)}">Open record ↗</a></td></tr>`; }
+function projectRow(project) { const feedback = project.publicFeedback?.ratingCount ? ` · public ${esc(project.publicFeedback.averageRating)}/10` : ''; const evidence = project.attachmentCount ? `${number(project.attachmentCount)} evidence files` : project.evidenceStatus === 'source-pending-index' ? 'Source evidence pending fetch' : 'No evidence indexed'; const estimate = project.amountEstimate; const estimateText = estimate ? `AI estimate: ${esc(estimate.formatted)} · ${esc(estimate.varianceLabel)}` : ''; return `<tr><td><strong>${esc(project.title)}</strong><small>${esc(project.mp)}</small></td><td>${esc(project.district)}<small>${esc([project.villageRaw, project.state].filter(Boolean).join(' · '))}</small></td><td>${esc(project.house)}<small>${esc(project.term)}</small></td><td>${esc(project.status)}</td><td>${esc(project.amount)}<small>${evidence}</small><small>${estimateText}</small><small>Review index: ${esc(project.riskIndex?.score ?? '—')}/100${feedback}</small></td><td><a class="row-action" href="/project.html?id=${encodeURIComponent(project.id)}">Open record ↗</a></td></tr>`; }
 function render(member, projects, meta) {
   const image = member.imageUrl ? `<img class="profile-photo" src="${esc(member.imageUrl)}" alt="Portrait of ${esc(member.name)}" />` : '<div class="profile-photo mp-no-photo">Photo unavailable</div>';
   const credit = member.imageSourceUrl ? `<a class="image-credit" href="${esc(member.imageSourceUrl)}" target="_blank" rel="noreferrer">Image source ↗</a>` : '';

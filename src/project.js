@@ -4,6 +4,7 @@ import * as pdfjsLib from 'pdfjs-dist/build/pdf.mjs';
 import Viewer from 'viewerjs';
 import 'viewerjs/dist/viewer.css';
 import '../styles.css';
+import './site-nav.js';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.mjs', import.meta.url).toString();
 
