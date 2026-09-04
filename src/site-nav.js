@@ -1,3 +1,5 @@
+import './i18n.js';
+
 const links = [
   ['Dashboard', '/'],
   ['Recommended works', '/works.html?kind=recommended'],
