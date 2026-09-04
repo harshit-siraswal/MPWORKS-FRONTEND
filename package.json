@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "leaflet": "^1.9.4",
-    "ux4g-web-components": "2.0.1"
+    "pdfjs-dist": "5.4.149",
+    "ux4g-web-components": "2.0.1",
+    "viewerjs": "1.11.7"
   },
   "devDependencies": {
     "vite": "^7.1.3"
