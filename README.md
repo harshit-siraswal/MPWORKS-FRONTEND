@@ -7,10 +7,13 @@ This is the first static frontend slice for the MPLAD Fraud + Inefficiency Intel
 From this directory:
 
 ```powershell
-python -m http.server 4173
+npm install
+npm run next:dev
 ```
 
-Then open [http://127.0.0.1:4173](http://127.0.0.1:4173).
+Then open [http://localhost:3000](http://localhost:3000). The Next.js App Router now owns the public routes, including the existing `.html` URLs used by shared links and bookmarks. `npm run vite:build` remains available as a compatibility build while the client-side data runtimes are progressively converted into React components.
+
+For the previous static development server, use `npm run dev` and open the Vite URL shown in the terminal.
 
 The frontend reads catalog, facet, summary, and evidence data from the local backend API. It contains no fallback records: if the API is unavailable, the UI shows a clear unavailable state instead of inventing content.
 
