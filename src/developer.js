@@ -4,19 +4,15 @@ import '../styles.css';
 import './site-nav.js';
 
 const API_BASE = (import.meta.env?.VITE_MPLAD_API_BASE || window.MPLAD_API_BASE || 'https://mpworks-api-public.onrender.com/api').replace(/\/$/, '');
-const baseLabel = document.querySelector('#apiBaseLabel');
 const quickstart = document.querySelector('#quickstartCode');
-const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (character) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;' }[character]));
 
-baseLabel.textContent = API_BASE;
-quickstart.textContent = `curl "${API_BASE}/projects?limit=20&offset=0"\n\n# JavaScript\nconst response = await fetch("${API_BASE}/projects?limit=20");\nconst { data, meta } = await response.json();`;
-
-document.querySelector('#copyBase')?.addEventListener('click', async () => {
-  const status = document.querySelector('#copyStatus');
-  try { await navigator.clipboard.writeText(API_BASE); status.textContent = 'Copied.'; }
-  catch { status.textContent = 'Copy unavailable; select the URL above.'; }
-  setTimeout(() => { status.textContent = ''; }, 2500);
-});
+quickstart.textContent = [
+  '# Configure your deployment API origin first',
+  'const API_BASE = "<your-api-origin>/api";',
+  '',
+  'const response = await fetch(`${API_BASE}/projects?limit=20&offset=0`);',
+  'const { data, meta } = await response.json();',
+].join('\n');
 
 document.querySelectorAll('[data-font]').forEach((button) => button.addEventListener('click', () => {
   const root = document.documentElement;
