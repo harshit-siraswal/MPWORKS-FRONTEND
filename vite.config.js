@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   build: {
+    reportCompressedSize: false,
     rollupOptions: {
       input: {
         dashboard: 'index.html',
