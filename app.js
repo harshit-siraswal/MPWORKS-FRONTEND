@@ -42,3 +42,31 @@ async function refreshStateDistrictOptions() { while (facetLoading) await new Pr
 document.querySelector('#stateFilter')?.addEventListener('change', () => void refreshStateDistrictOptions());
 function showPinnedAreaActions() { const location = mapPinLocation; if (!location) return; const panel = document.querySelector('.map-panel'); if (!panel) return; let actions = document.querySelector('#mapAreaActions'); if (!actions) { panel.insertAdjacentHTML('beforeend', '<div id="mapAreaActions" class="map-area-actions" hidden><span>Explore this pinned area</span><a id="mapRecommendedLink" class="map-area-link recommended" href="/works.html?kind=recommended">Recommended works</a><a id="mapCompletedLink" class="map-area-link completed" href="/works.html?kind=completed">Completed works</a></div>'); actions = document.querySelector('#mapAreaActions'); } const params = new URLSearchParams(); if (location.state) params.set('state', location.state); if (location.district) params.set('district', location.district); document.querySelector('#mapRecommendedLink').href = `/works.html?kind=recommended&${params}`; document.querySelector('#mapCompletedLink').href = `/works.html?kind=completed&${params}`; actions.hidden = false; }
 document.addEventListener('click', (event) => { if (event.target.closest?.('#applyMapPin')) setTimeout(showPinnedAreaActions, 80); });
+
+function optionValueFor(select, valueToMatch) {
+  const wanted = String(valueToMatch || '').trim().toLowerCase();
+  return [...(select?.options || [])].find((option) => option.value.trim().toLowerCase() === wanted)?.value || '';
+}
+
+// Reverse geocoding returns title-cased names while the source facets often
+// use uppercase names. Always apply the matching facet value, not just an
+// exact-case string comparison, so a map pin narrows to the actual district.
+async function applyMapPin() {
+  if (!mapPinLocation) return;
+  const stateSelect = document.querySelector('#stateFilter');
+  const districtSelect = document.querySelector('#districtFilter');
+  const state = optionValueFor(stateSelect, mapPinLocation.state);
+  const districtName = mapPinLocation.district || mapPinLocation.area || '';
+  if (state) stateSelect.value = state;
+  ['constituencyFilter', 'categoryFilter', 'statusFilter'].forEach((id) => { document.querySelector(`#${id}`).value = ''; });
+  districtSelect.value = '';
+  await loadFacets();
+  await refreshStateDistrictOptions();
+  const district = optionValueFor(districtSelect, districtName);
+  if (district) districtSelect.value = district;
+  updateDistrictLink();
+  await loadCatalog();
+  await loadMetrics();
+  document.querySelector('#explore').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.querySelector('#mapStatus').textContent = `Dashboard filters applied for ${district || state || 'the pinned area'}.`;
+}
